@@ -4,15 +4,12 @@ import { PostsContext } from "./Layout";
 
 const NavBar = () => {
   const posts = React.useContext(PostsContext);
-  const users = posts.map((post) => {
-    return {
-      name: `User ${post?.userId}`,
-      ...post,
-    };
-  });
-  const uniqueUsers = users.reduce((acc, user) => {
+  const uniqueUsers = posts.reduce((acc, user) => {
     if (!acc[user.userId]) {
-      acc[user.userId] = user;
+      acc[user.userId] = {
+        ...user,
+        name: `User ${user.userId}`,
+      };
     }
     return acc;
   }, {});
